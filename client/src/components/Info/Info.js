@@ -1,15 +1,8 @@
 import React from 'react';
 
-import './Info.css';
-
 const Info = ({ users, keyword }) => (
-  <div className="textContainer">
-    <div>
-      
-     
-    </div>
-    {
-      users
+  <>
+    {users
         ? (
           <div>
             <h1>Lobby:</h1>
@@ -27,7 +20,7 @@ const Info = ({ users, keyword }) => (
         )
         : null
     }
-  </div>
+  </>
 );
 
 export default Info;

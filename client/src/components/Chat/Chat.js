@@ -22,7 +22,6 @@ let socket;
 
 const Chat = ({ location }) => {
   const [name, setName] = useState('');
-  const [room, setRoom] = useState('');
   const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
   const [keyword, setKeyword] = useState('');
@@ -33,7 +32,6 @@ const Chat = ({ location }) => {
 
     socket = io.connect(ENDPOINT, connectionOptions);
 
-    setRoom(room);
     setName(name);
 
     socket.emit('join', { name, room }, (error) => {
@@ -63,28 +61,23 @@ const Chat = ({ location }) => {
   }
 
   return (
-    <div className="outerContainer" style={{display:'flex',justifyContent:'center',height:'100vh'}}>
-      
-      <div style={{height: '60%', width: '33%', flexDirection: 'column', display: 'flex'}}>
-      <h1>Find the word that contains: {keyword}</h1>
+    <div className="chatContainer">
+      <h1 >Find the word that contains: {keyword}</h1>
+      <div className='innerContainer'>
             <ScrollToBottom className="messages">
                 {messages.map((message, i) => <div key={i}><Message message={message} name={name}/></div>)}
             </ScrollToBottom>
-            <form className="form">
+            <form>
             <Input
-                className="input"
                 type="text"
                 placeholder="Guess the word!"
                 value={message}
                 onChange={({ target: { value } }) => setMessage(value)}
                 onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
             />
-      
-        </form>
-          
-        <Info users={users} keyword ={keyword}/>
+            </form>
       </div>
-      
+      <Info users={users} keyword ={keyword} />
     </div>
   );
 }
